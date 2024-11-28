@@ -36,10 +36,10 @@ class MessageController extends Controller
             Message::create($validatedData);
         }
         catch(\Exception $e){
-            return response()->json(['error'=>'Hiba lépett fel a küldés közben.']);
+            return response()->json(['error'=>'Hiba lépett fel a küldés közben.'])->status(500);
         }
         finally{
-            return response()->json(['success'=>'Sikeres üzenet küldés!']);
+            return response()->json(['success'=>'Sikeres üzenet küldés!'])->status(200);
         }
         
     }
