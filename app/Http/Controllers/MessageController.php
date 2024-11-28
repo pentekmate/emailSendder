@@ -28,20 +28,21 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'email'=>'string|required',
-            'message'=>'string|required|max:255'
-        ]);
-        try{
+        try {
+            $validatedData = $request->validate([
+                'email' => 'string|required',
+                'message' => 'string|required|max:255',
+            ]);
             Message::create($validatedData);
+            return response()->json(['success' => 'Sikeres üzenet küldés!'], 200);
+        } catch (\Illuminate\Validation\ValidationException $e) {            
+            $errorMessage = collect($e->errors())->flatten()->implode(' ');
+
+
+            return response()->json(['errors' =>$errorMessage ], 422);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Hiba lépett fel a küldés közben.'], 500);
         }
-        catch(\Exception $e){
-            return response()->json(['error'=>'Hiba lépett fel a küldés közben.'],500);
-        }
-        finally{
-            return response()->json(['success'=>'Sikeres üzenet küldés!'],200);
-        }
-        
     }
 
     /**
