@@ -34,14 +34,14 @@ class MessageController extends Controller
                 'message' => 'string|required|max:255',
             ]);
             Message::create($validatedData);
-            return response()->json(['success' => 'Sikeres üzenet küldés!'], 200);
+            return response()->json(['message' => 'Sikeres üzenet küldés!'], 200);
         } catch (\Illuminate\Validation\ValidationException $e) {            
             $errorMessage = collect($e->errors())->flatten()->implode(' ');
 
 
-            return response()->json(['errors' =>$errorMessage ], 422);
+            return response()->json(['message' =>$errorMessage ], 422);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Hiba lépett fel a küldés közben.'], 500);
+            return response()->json(['message' => 'Hiba lépett fel a küldés közben.'], 500);
         }
     }
 
