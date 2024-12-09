@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('cvs', function (Blueprint $table) {
             $table->id()->unique();
             $table->timestamps();
-            $table->string('message');
-            $table->string('email');
+            $table->string('type');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        //
     }
 };
